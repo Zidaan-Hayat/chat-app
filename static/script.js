@@ -1,3 +1,4 @@
+// The WS url is the equivalent of the site HTTPS url
 const socket = new WebSocket(window.location.href.replace("http", "ws"));
 
 function makeWarning(text) {

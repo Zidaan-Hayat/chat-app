@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "colors": "^1.4.0",
     "express": "^4.17.1",
     "ws": "^8.3.0"
   }

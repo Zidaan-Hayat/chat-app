@@ -1,4 +1,5 @@
-const colors = require("colors");
+// HTTP server so we can utilise both WS and express
+// on the same port
 const server = require("http").createServer();
 const { WebSocketServer } = require("ws");
 
@@ -7,17 +8,13 @@ const connections = new Set();
 
 server.on('request', require('./file_svr'));
 
-function getSign(sign) {
-	return ("[".green.bold + `${sign}`.yellow.bold + "]".green.bold);
-}
-
 wss.on('connection', (ws) => {
 	connections.add(ws);
-	console.log(`${getSign("+")} New user connected! [${ws._socket.remoteAddress}]`);
+	console.log(`New user connected! [${ws._socket.remoteAddress}]`);
 
 	ws.on('message', (data) => {
 		const cleanData = JSON.parse(data.toString());
-		console.log(`${getSign("+")} New message received ${cleanData.author}: "${cleanData.content}"`);
+		console.log(`New message received ${cleanData.author}: "${cleanData.content}"`);
 
 		connections.forEach(conn => {
 			conn.send(JSON.stringify(cleanData));
